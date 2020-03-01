@@ -2,7 +2,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-filepath = "/location_of_the_pdb_file/5kkk.pdb"
+# the file path will need to contain the location of the protein databse file to parse
+filepath = "5kkk.pdb"
 
 # Part 1
 

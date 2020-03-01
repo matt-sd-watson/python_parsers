@@ -2,9 +2,8 @@ import re
 
 # input file corresponds to all of the coding sequences for chromosome 2L
 # of Drosophila melanogaster
-file = "/Users/mattsdwatson/Documents/KU Leuven/Courses/" \
-       "Practical Computing for Bioinformatics/example_exam/" \
-         "drosophila_sequence.txt"
+
+file = "drosophila_2L.txt"
 
 readfile = open(file, "r")
 # enable the parsers to read the file
