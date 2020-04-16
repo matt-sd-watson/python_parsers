@@ -11,7 +11,7 @@ from os.path import isfile, join
 # partial file names (without the complete directory path) for the fastqs were generated using
 # ls $search_path > filename.txt
 
-def kallisto_script(fullnames, partial_names, output_file):
+def kallisto_script(fullnames, partial_names, index, output_file):
     fullnames_read = [f for f in open(fullnames, "r")]
 
     partial_name_read = [f for f in open(partial_names, "r")]
@@ -19,7 +19,7 @@ def kallisto_script(fullnames, partial_names, output_file):
     kallisto_commands = []
     for i, k in zip(fullnames_read, partial_name_read):
         # shell command line for kallisto rna seq quantification of single read libraries
-        kallisto_commands.append("kallisto quant -i index -o output/{} --single -l 200 -s 20 {}".format(k, i))
+        kallisto_commands.append("kallisto quant -i index -o output/{} --single -l 200 -s 20 {}".format(index, k, i))
 
     with open(output_file, "w") as handle:
         # include the bash shebang line that is preferred for portability
@@ -33,5 +33,5 @@ def kallisto_script(fullnames, partial_names, output_file):
 
 
 kallisto_script("/Users/mattsdwatson/VIB_proj_3425/files_fullpath.txt",
-                "/Users/mattsdwatson/VIB_proj_3425/filename.txt",
+                "/Users/mattsdwatson/VIB_proj_3425/filename.txt", "/mnt/internship/",
                 "kallisto_quant.sh")
