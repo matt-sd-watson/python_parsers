@@ -3,6 +3,7 @@ import re
 
 def convert_coding_file(file, output_file=None):
     open_file = open(file, "r").read()
+    # separate all nucleotide sequences
     sequences = re.findall(r"((?:[ATGC]+\n)+)", open_file)
 
 # establish a dictionary of the amino acids and their corresponding abbreviations
@@ -25,24 +26,20 @@ def convert_coding_file(file, output_file=None):
         'TGC':'C', 'TGT':'C', 'TGA':'_', 'TGG':'W',
     }
 
-# get the codons read in groups of three for translation
-    codons = []
+    # get the codons read in groups of three for translation
+    # establish a list of the proteins
+    # if the protein in the table is present in the codon sequence, append to the protein list
+
+    proteins = []
     for frame in sequences:
         for i in range(0, len(frame), 3):
             codon = frame[i:i + 3]
-            codons.append(codon)
+            if codon in table:
+                proteins.append(table.get(codon))
+            else:
+                proteins.append("X")
             if codon in ["TAG", "TAA", "TGA"]:
                 break
-
-    # establish a list of the proteins
-    # if the protein in the table is present in the sequene, append to the protein list
-    proteins = []
-    for i in codons:
-        if i in table:
-            proteins.append(table.get(i))
-        else:
-            # append an X for any position where the amino acid cannot be read
-            proteins.append("X")
 
     # concatenate all proteins into a continuous amino acid sequence
     final_sequence = ''.join(str(elem) for elem in proteins)
@@ -57,7 +54,4 @@ def convert_coding_file(file, output_file=None):
     else:
 
         return individual_sequences
-
-
-
 
